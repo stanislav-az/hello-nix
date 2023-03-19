@@ -4,7 +4,7 @@ let
   defaultAttrs = {
     builder = "${bash}/bin/bash";
     args = [ ./generic_builder.sh ];
-    baseInputs = [ gnutar gzip gnumake gcc coreutils gawk gnused gnugrep binutils.bintools ];
+    baseInputs = [ gnutar gzip gnumake gcc coreutils gawk gnused gnugrep findutils patchelf binutils.bintools ];
     system = builtins.currentSystem;
   };
 in
