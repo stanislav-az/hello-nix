@@ -1,9 +1,11 @@
 let
   nixpkgs = import <nixpkgs> { };
+  mylib = import ./lib.nix;
   allPkgs = nixpkgs // pkgs;
   callPackage = path: overrides:
     let f = import path;
-    in f ((builtins.intersectAttrs (builtins.functionArgs f) allPkgs) // overrides);
+        overridable = mylib.makeOverridable f (builtins.intersectAttrs (builtins.functionArgs f) allPkgs);
+    in overridable.override overrides;
   pkgs = with nixpkgs;
     {
       mkDerivation = import ./autotools.nix nixpkgs;
